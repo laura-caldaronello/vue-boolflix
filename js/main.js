@@ -2,7 +2,7 @@ var app = new Vue({
     el: '#root',
     data: {
         search: '',
-        movies: []
+        found: []
     },
     methods: {
         searching: function() {
@@ -11,31 +11,43 @@ var app = new Vue({
             this.search = this.search.replace(/ /g,'+');
 
             // reset
-            this.movies = [];
+            this.found = [];
 
             if (this.search != '') {
                 axios
-                .get('https://api.themoviedb.org/3/search/movie?api_key=74414cb486bec78c348850cbf8bf2fc4&language=it-IT&query=' + this.search)
+                .get('https://api.themoviedb.org/3/search/multi?api_key=74414cb486bec78c348850cbf8bf2fc4&language=it-IT&query=' + this.search)
                 .then((got) => {
     
                     got.data.results.forEach((result) => {
 
-                        // Definisco le stelle
-                        result.stars = Math.floor(result.vote_average / 2) + 1;
+                        if (result.media_type == 'movie' || result.media_type == 'tv') {
 
-                        // Trasformo la lingua in una nazione per essere coerente con le icone di https://www.countryflags.io
-                        result.flag = result.original_language;
-                        if (result.flag == 'en') {
-                            result.flag = 'us';
+                            // Definisco le stelle
+                            result.stars = Math.floor(result.vote_average / 2) + 1;
+    
+                            // Trasformo la lingua in una nazione per essere coerente con le icone di https://www.countryflags.io
+                            result.flag = result.original_language;
+                            switch (result.flag) {
+                                case 'en':
+                                    result.flag = 'us';
+                                    break;
+                                case 'da':
+                                    result.flag = 'dk';
+                                    break;
+                                case 'el':
+                                    result.flag = 'gr';
+                                    break;
+                            };
+    
+                            this.found.push(result);
+    
+                            console.log(result);
+
                         }
-
-                        this.movies.push(result);
-
-                        console.log(result);
 
                     });
     
-                });    
+                });
             }
         }
     },

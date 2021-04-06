@@ -17,11 +17,19 @@
         <input type="text" id="searchInput">
         <button @click="searching">Cerca</button>
         <ul>
-            <li v-for="movie in movies">
-                {{'Titolo: ' + movie.title + '; Titolo originale: ' + movie.original_title + '; Lingua: '}}
-                <img :src="'https://www.countryflags.io/' + movie.flag + '/flat/16.png'">
-                 {{'; Stelle: '}}
-                <i v-for="number in 5" class="fa-star" :class="(number <= movie.stars)? 'fas' : 'far'"></i>
+            <li v-for="item in found">
+                <div v-if="item.media_type == 'movie'">
+                    {{'Titolo: ' + item.title + '; Titolo originale: ' + item.original_title + '; Lingua: '}}
+                    <img :src="'https://www.countryflags.io/' + item.flag + '/flat/16.png'">
+                     {{'; Stelle: '}}
+                    <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>    
+                </div>
+                <div v-if="item.media_type == 'tv'">
+                    {{'Titolo: ' + item.name + '; Titolo originale: ' + item.original_name + '; Lingua: '}}
+                    <img :src="'https://www.countryflags.io/' + item.flag + '/flat/16.png'">
+                     {{'; Stelle: '}}
+                    <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>    
+                </div>
             </li>
         </ul>
     </div>
