@@ -23,7 +23,15 @@ var app = new Vue({
                         // Definisco le stelle
                         result.stars = Math.floor(result.vote_average / 2) + 1;
 
+                        // Trasformo la lingua in una nazione per essere coerente con le icone di https://www.countryflags.io
+                        result.flag = result.original_language;
+                        if (result.flag == 'en') {
+                            result.flag = 'us';
+                        }
+
                         this.movies.push(result);
+
+                        console.log(result);
 
                     });
     
