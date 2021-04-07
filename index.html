@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
@@ -16,7 +18,7 @@
         <header>
             <img src="img/boolflix.png">
             <div id="search-container">
-                <input type="text" v-model="search">
+                <input type="text" v-model="search" v-on:keyup.enter="searching">
                 <button @click="searching">Cerca</button>
             </div>
         </header>
@@ -25,28 +27,40 @@
                 <li v-for="item in found">
                     <!-- preferisco mettere l'immagine come sfondo perchè potrei voler aggiungere scritte sopra -->
                     <div class="poster" :style="{backgroundImage: `url(${srcPosterFirst + srcPosterDimension + item.poster_path})`}">
-                        <span v-if="item.poster_path == null">Copertina non disponibile</span>
+                        <h4 v-if="item.poster_path == null">Copertina non disponibile</h4>
                     </div>
                     <div class="info">
-                        {{'Titolo: '}}
-                        <span v-if="item.media_type == 'movie'">
-                            {{item.title}}
-                        </span>
-                        <span v-else-if="item.media_type == 'tv'">
-                            {{item.name}}
-                        </span>
-                        {{'; Titolo originale: '}}
-                        <span v-if="item.media_type == 'movie'">
-                            {{item.original_title}}
-                        </span>
-                        <span v-else-if="item.media_type == 'tv'">
-                            {{item.original_name}}
-                        </span>
-                        {{'; Lingua: '}}
-                        <img v-if="includeFlag(item.flag)" :src="srcFlagFirst + item.flag + srcFlagLast">
-                        <span v-else>{{item.flag}}</span>
-                        {{'; Stelle: '}}
-                        <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>
+                        <div class="title">
+                            <h4>{{'Titolo: '}}</h4>
+                            <span v-if="item.media_type == 'movie'">
+                                {{item.title}}
+                            </span>
+                            <span v-else-if="item.media_type == 'tv'">
+                                {{item.name}}
+                            </span>
+                        </div>
+                        <div class="original-title">
+                            <h4>{{'Titolo originale: '}}</h4>
+                            <span v-if="item.media_type == 'movie'">
+                                {{item.original_title}}
+                            </span>
+                            <span v-else-if="item.media_type == 'tv'">
+                                {{item.original_name}}
+                            </span>
+                        </div>
+                        <div class="language">
+                            <h4>{{'Lingua: '}}</h4>
+                            <img v-if="includeFlag(item.flag)" :src="srcFlagFirst + item.flag + srcFlagLast">
+                            <span v-else>{{item.flag}}</span>
+                        </div>
+                        <div class="vote">
+                            <h4>{{'Voto: '}}</h4>
+                            <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>
+                        </div>
+                        <div class="overview" v-if="item.overview != ''">
+                            <h4>{{'Trama: '}}</h4>
+                            <span>{{item.overview}}</span>
+                        </div>
                     </div>
                 </li>
             </ul>

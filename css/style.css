@@ -5,6 +5,11 @@
 }
 body {
     overflow-y: scroll;
+    font-family: 'Roboto', sans-serif;
+    background-color: grey;
+}
+body::-webkit-scrollbar {
+    display: none;
 }
 
 header {
@@ -20,6 +25,16 @@ header > * {
 header img {
     height: 50%;
 }
+header #search-container > * {
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+header #search-container button {
+    background-color: grey;
+    color: white;
+}
 
 main ul {
     width: 1500px;
@@ -29,23 +44,45 @@ main ul {
 main li {
     float: left;
     width: calc((100% / 6) - 10px);
-    height: 300px;
+    height: 350px;
     margin: 5px;
-    border: 1px solid bisque;
+    border: 2px solid white;
+    line-height: calc((350px - 10px - 10px) / 10);
 }
 main li .poster {
     height: 100%;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: bisque;
 }
 main li:hover .poster {
     display: none;
 }
 main li .info {
     display: none;
+    padding: 10px;
+    color: white;
+}
+main li:hover {
+    overflow-y: scroll;
+    background-color: black;
+}
+main li:hover::-webkit-scrollbar {
+    display: none;
 }
 main li:hover .info {
     display: block;
+}
+main li .info h4 {
+    display: inline;
+}
+main li .poster h4 {
+    line-height: calc(350px - 10px - 10px);
+    text-align: center;
+}
+main li .language img {
+    vertical-align: middle;
+}
+main li .vote i {
+    color: rgb(255, 201, 53);
 }
