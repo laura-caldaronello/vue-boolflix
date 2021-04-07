@@ -37,7 +37,8 @@
                 {{'; Stelle: '}}
                 <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>
                 {{'; Poster: '}}
-                <img :src="srcPosterFirst + srcPosterDimension + item.poster_path">
+                <img v-if="item.poster_path != null" :src="srcPosterFirst + srcPosterDimension + item.poster_path">
+                <span v-else>{{'Non disponibile'}}</span>
             </li>
         </ul>
     </div>
