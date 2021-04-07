@@ -5,8 +5,10 @@ var app = new Vue({
         language: 'it-IT',
         search: '',
         flags: ['us','it','fr','de','es'],
-        srcFirst: 'https://www.countryflags.io/',
-        srcLast: '/flat/16.png',
+        srcFlagFirst: 'https://www.countryflags.io/',
+        srcFlagLast: '/flat/16.png',
+        srcPosterFirst: 'https://image.tmdb.org/t/p/',
+        srcPosterDimension : 'w45/',
         found: []
     },
     methods: {
@@ -34,7 +36,7 @@ var app = new Vue({
     
                     got.data.results.forEach((result) => {
 
-                        // avendo fatto la chiamata "multi" posso potenzilmente tornare anche altre tipologie di informazioni
+                        // avendo fatto la chiamata "multi" posso potenzialmente ottenere anche altre tipologie di informazioni
                         if (result.media_type == 'movie' || result.media_type == 'tv') {
 
                             // Definisco le stelle
@@ -45,7 +47,9 @@ var app = new Vue({
                             if (result.flag == 'en') {
                                 result.flag = 'us';
                             };
-    
+                            
+                            console.log(result);
+
                             this.found.push(result);
 
                         };
