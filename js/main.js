@@ -39,6 +39,19 @@ var app = new Vue({
                         // avendo fatto la chiamata "multi" posso potenzialmente ottenere anche altre tipologie di informazioni
                         if (result.media_type == 'movie' || result.media_type == 'tv') {
 
+                            // da qui chiamo gli attori
+                            result.cast5 = [];
+                            axios
+                            .get('https://api.themoviedb.org/3/' + result.media_type + '/' + result.id + '/credits?api_key=' + this.api_key + '&language=' + this.language)
+                            .then((credits) => {
+                                if (credits.data.cast != []) {
+                                    for (let i = 0; i < 5; i++) {
+                                        result.cast5.push(credits.data.cast[i]);
+                                    }
+                                }
+                                console.log(result.cast5);
+                            });
+
                             // Definisco le stelle
                             result.stars = this.transformVote(result.vote_average);
     
