@@ -13,23 +13,29 @@
 <body>
     
     <div id="root">
-        <!-- non uso v-model perchè altrimenti nel momento in cui sostituisco agli spazi il + lo si vede anche nell'input -->
-        <input type="text" id="searchInput">
+        <input type="text" v-model="search">
         <button @click="searching">Cerca</button>
         <ul>
             <li v-for="item in found">
-                <div v-if="item.media_type == 'movie'">
-                    {{'Titolo: ' + item.title + '; Titolo originale: ' + item.original_title + '; Lingua: '}}
-                    <img :src="'https://www.countryflags.io/' + item.flag + '/flat/16.png'">
-                     {{'; Stelle: '}}
-                    <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>    
-                </div>
-                <div v-if="item.media_type == 'tv'">
-                    {{'Titolo: ' + item.name + '; Titolo originale: ' + item.original_name + '; Lingua: '}}
-                    <img :src="'https://www.countryflags.io/' + item.flag + '/flat/16.png'">
-                     {{'; Stelle: '}}
-                    <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>    
-                </div>
+                {{'Titolo: '}}
+                <span v-if="item.media_type == 'movie'">
+                    {{item.title}}
+                </span>
+                <span v-else-if="item.media_type == 'tv'">
+                    {{item.name}}
+                </span>
+                {{'; Titolo originale: '}}
+                <span v-if="item.media_type == 'movie'">
+                    {{item.original_title}}
+                </span>
+                <span v-else-if="item.media_type == 'tv'">
+                    {{item.original_name}}
+                </span>
+                {{'; Lingua: '}}
+                <img v-if="includeFlag(item.flag)" :src="srcFirst + item.flag + srcLast">
+                <span v-else>{{item.flag}}</span>
+                {{'; Stelle: '}}
+                <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>    
             </li>
         </ul>
     </div>
