@@ -8,7 +8,7 @@ var app = new Vue({
         srcFlagFirst: 'https://www.countryflags.io/',
         srcFlagLast: '/flat/16.png',
         srcPosterFirst: 'https://image.tmdb.org/t/p/',
-        srcPosterDimension : 'w45/',
+        srcPosterDimension : 'w342/',
         found: []
     },
     methods: {

@@ -13,34 +13,44 @@
 <body>
     
     <div id="root">
-        <input type="text" v-model="search">
-        <button @click="searching">Cerca</button>
-        <ul>
-            <li v-for="item in found">
-                {{'Titolo: '}}
-                <span v-if="item.media_type == 'movie'">
-                    {{item.title}}
-                </span>
-                <span v-else-if="item.media_type == 'tv'">
-                    {{item.name}}
-                </span>
-                {{'; Titolo originale: '}}
-                <span v-if="item.media_type == 'movie'">
-                    {{item.original_title}}
-                </span>
-                <span v-else-if="item.media_type == 'tv'">
-                    {{item.original_name}}
-                </span>
-                {{'; Lingua: '}}
-                <img v-if="includeFlag(item.flag)" :src="srcFlagFirst + item.flag + srcFlagLast">
-                <span v-else>{{item.flag}}</span>
-                {{'; Stelle: '}}
-                <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>
-                {{'; Poster: '}}
-                <img v-if="item.poster_path != null" :src="srcPosterFirst + srcPosterDimension + item.poster_path">
-                <span v-else>{{'Non disponibile'}}</span>
-            </li>
-        </ul>
+        <header>
+            <img src="img/boolflix.png">
+            <div id="search-container">
+                <input type="text" v-model="search">
+                <button @click="searching">Cerca</button>
+            </div>
+        </header>
+        <main>
+            <ul>
+                <li v-for="item in found">
+                    <!-- preferisco mettere l'immagine come sfondo perchè potrei voler aggiungere scritte sopra -->
+                    <div class="poster" :style="{backgroundImage: `url(${srcPosterFirst + srcPosterDimension + item.poster_path})`}">
+                        <span v-if="item.poster_path == null">Copertina non disponibile</span>
+                    </div>
+                    <div class="info">
+                        {{'Titolo: '}}
+                        <span v-if="item.media_type == 'movie'">
+                            {{item.title}}
+                        </span>
+                        <span v-else-if="item.media_type == 'tv'">
+                            {{item.name}}
+                        </span>
+                        {{'; Titolo originale: '}}
+                        <span v-if="item.media_type == 'movie'">
+                            {{item.original_title}}
+                        </span>
+                        <span v-else-if="item.media_type == 'tv'">
+                            {{item.original_name}}
+                        </span>
+                        {{'; Lingua: '}}
+                        <img v-if="includeFlag(item.flag)" :src="srcFlagFirst + item.flag + srcFlagLast">
+                        <span v-else>{{item.flag}}</span>
+                        {{'; Stelle: '}}
+                        <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>
+                    </div>
+                </li>
+            </ul>
+        </main>
     </div>
 
     <script src="js/main.js"></script>
