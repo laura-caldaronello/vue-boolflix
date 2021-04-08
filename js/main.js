@@ -9,7 +9,10 @@ var app = new Vue({
         srcFlagLast: '/flat/16.png',
         srcPosterFirst: 'https://image.tmdb.org/t/p/',
         srcPosterDimension : 'w342/',
-        found: []
+        found: [],
+        menuLeft: ['Home','Serie TV','Film','Nuovi e popolari','La mia lista','Guarda di nuovo'],
+        menuLeftActive: 0,
+        menuRight: []
     },
     methods: {
         transformVote: function(vote) {
@@ -17,6 +20,18 @@ var app = new Vue({
         },
         includeFlag: function(flag) {
             return this.flags.includes(flag);
+        },
+        isRightType: function(item) {
+            if  (   this.menuLeftActive == 0 || 
+                    (this.menuLeftActive == 1 && item.media_type == 'tv') ||
+                    (this.menuLeftActive == 2 && item.media_type == 'movie')
+                    // qui metterò eventualmente le altre opzioni
+                ) {
+                    return true;
+            }
+            else {
+                return false;
+            };
         },
         searching: function() {
 
@@ -44,9 +59,12 @@ var app = new Vue({
                             axios
                             .get('https://api.themoviedb.org/3/' + result.media_type + '/' + result.id + '/credits?api_key=' + this.api_key + '&language=' + this.language)
                             .then((credits) => {
-                                if (credits.data.cast != []) {
+                                console.log(credits.data.cast);
+                                if (credits.data.cast.length != 0) {
                                     for (let i = 0; i < 5; i++) {
-                                        result.cast5.push(credits.data.cast[i]);
+                                        if (credits.data.cast[i] != undefined) {
+                                            result.cast5.push(credits.data.cast[i]);
+                                        }
                                     }
                                 }
                                 console.log(result.cast5);

@@ -14,28 +14,76 @@ body::-webkit-scrollbar {
 
 header {
     height: 80px;
+    width: 100vw;
     background-color: black;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    top: 0;
 }
 header > * {
     margin: 20px;
 }
-header img {
-    height: 50%;
+header #header-left,
+header #header-right {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
-header #search-container > * {
+header #header-left img {
+    height: 40px;
+    margin-right: 20px;
+}
+header #header-left ul {
+    list-style: none;
+}
+header #header-left li {
+    display: inline-block;
     margin: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-}
-header #search-container button {
-    background-color: grey;
     color: white;
 }
+header #header-left li.active {
+    font-weight: bold;
+    cursor: context-menu;
+}
+header #header-left li:not(.active) {
+    cursor: pointer;
+}
+header #search-container {
+    position: relative;
+    width: 200px;
+    height: 30px;
+    background-color: black;
+    border: 1px solid white;
+}
+header #search-container > i {
+    margin: 5px;
+    color: white;
+    cursor: pointer;
+    vertical-align: middle;
+}
+header #search-container > input {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-color: black;
+    background-color: black;
+    color: white;
+}
+header #search-container > input:focus {
+    outline: none;
+}
+header #header-right {
+    list-style: none;
+}
+header #header-right li {
+    display: inline-block;
+}
 
+main {
+    padding-top: 80px;
+}
 main ul {
     width: 1500px;
     margin: 0 auto;
