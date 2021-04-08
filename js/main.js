@@ -4,6 +4,7 @@ var app = new Vue({
         api_key: '74414cb486bec78c348850cbf8bf2fc4',
         language: 'it-IT',
         search: '',
+        searchOpen: false,
         flags: ['us','it','fr','de','es'],
         srcFlagFirst: 'https://www.countryflags.io/',
         srcFlagLast: '/flat/16.png',
@@ -12,7 +13,6 @@ var app = new Vue({
         found: [],
         menuLeft: ['Home','Serie TV','Film','Nuovi e popolari','La mia lista','Guarda di nuovo'],
         menuLeftActive: 0,
-        menuRight: []
     },
     methods: {
         transformVote: function(vote) {
@@ -32,6 +32,9 @@ var app = new Vue({
             else {
                 return false;
             };
+        },
+        openingClosing: function() {
+            this.searchOpen = !this.searchOpen;
         },
         searching: function() {
 

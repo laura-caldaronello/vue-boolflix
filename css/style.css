@@ -38,7 +38,8 @@ header #header-left img {
 header #header-left ul {
     list-style: none;
 }
-header #header-left li {
+header #header-left li,
+header #header-right li {
     display: inline-block;
     margin: 10px;
     color: white;
@@ -50,12 +51,18 @@ header #header-left li.active {
 header #header-left li:not(.active) {
     cursor: pointer;
 }
-header #search-container {
+header #search-container:not(.compressed) {
     position: relative;
     width: 200px;
     height: 30px;
     background-color: black;
     border: 1px solid white;
+    transition: width 1s;
+    overflow: hidden;
+}
+header #search-container.compressed {
+    width: 20px;
+    transition: width 1s;
 }
 header #search-container > i {
     margin: 5px;
@@ -63,22 +70,25 @@ header #search-container > i {
     cursor: pointer;
     vertical-align: middle;
 }
-header #search-container > input {
+header #search-container > input:not(.hidden) {
+    display: inline-block;
     position: absolute;
+    width: 150px;
     top: 50%;
     transform: translateY(-50%);
     border-color: black;
     background-color: black;
     color: white;
+    transition: 1s;
 }
-header #search-container > input:focus {
+header #search-container > input:not(.hidden):focus {
     outline: none;
+}
+header #search-container > input.hidden {
+    display: none;
 }
 header #header-right {
     list-style: none;
-}
-header #header-right li {
-    display: inline-block;
 }
 
 main {

@@ -23,11 +23,21 @@
                 </ul>
             </div>
             <ul id="header-right">
-                <li id="search-container">
-                    <i class="fas fa-search" @click="searching"></i>
-                    <input type="text" v-model="search" v-on:keyup.enter="searching">
+                <li id="search-container" :class="searchOpen? '' : 'compressed'">
+                    <i class="fas fa-search" @click="openingClosing"></i>
+                    <input type="text" v-model="search" v-on:keyup.enter="searching" :class="searchOpen? '' : 'hidden'">
                 </li>
-                
+                <li>Bambini</li>
+                <li><i class="fas fa-gift"></i></li>
+                <li><i class="fas fa-bell"></i></li>
+                <li>
+                    <i class="fas fa-user-alt"></i>
+                    <i class="fas fa-caret-down"></i>
+                </li>
+                <li>
+                    <i class="fas fa-sliders-h"></i>
+                    <i class="fas fa-caret-down"></i>
+                </li>
             </ul>
         </header>
         <main>
