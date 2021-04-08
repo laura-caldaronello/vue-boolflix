@@ -75,6 +75,12 @@
                             <h4>Voto: </h4>
                             <i v-for="number in 5" class="fa-star" :class="(number <= item.stars)? 'fas' : 'far'"></i>
                         </div>
+                        <div class="genres" v-if="item.genre_names.length != 0">
+                            <div v-for="(name,index) in item.genre_names">
+                                <h4>Genere {{index + 1}}: </h4>
+                                {{name}}
+                            </div>
+                        </div>
                         <div class="cast" v-if="item.cast5.length != 0">
                             <h4>Cast: </h4>
                             <span v-for="(actor,index) in item.cast5">
