@@ -41,8 +41,19 @@
             </ul>
         </header>
         <main>
+            <div id="firstLine">
+                <h2 v-if="found.length != 0">{{menuLeft[menuLeftActive]}}</h2>
+                <select v-if="menuLeft[menuLeftActive] == 'Film'" name="movieGenresFilter" id="movieGenresFilter" v-model="selectedGenre">
+                    <option value="All">All</option>
+                    <option v-for="genre in movieGenres" :value="genre.name">{{genre.name}}</option>
+                </select>
+                <select v-if="menuLeft[menuLeftActive] == 'Serie TV'" name="tvGenresFilter" id="tvGenresFilter" v-model="selectedGenre">
+                    <option value="All">All</option>
+                    <option v-for="genre in tvGenres" :value="genre.name">{{genre.name}}</option>
+                </select>
+            </div>
             <ul>
-                <li v-for="item in found" v-if="isRightType(item)">
+                <li v-for="item in found" v-if="isRightType(item) && (item.genre_names.includes(selectedGenre) || selectedGenre == 'All')">
                     <!-- preferisco mettere l'immagine come sfondo perchè potrei voler aggiungere scritte sopra -->
                     <div class="poster" :style="{backgroundImage: `url(${srcPosterFirst + srcPosterDimension + item.poster_path})`}">
                         <h4 v-if="item.poster_path == null">Copertina non disponibile</h4>

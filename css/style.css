@@ -94,6 +94,22 @@ header #header-right {
 main {
     padding-top: 80px;
 }
+main #firstLine {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+main h2 {
+    padding: 20px;
+    color: white;
+}
+main select {
+    height: 30px;
+    margin-left: 20px;
+    background-color: grey;
+    color: white;
+    border-color: white;
+}
 main ul {
     width: 1500px;
     margin: 0 auto;
