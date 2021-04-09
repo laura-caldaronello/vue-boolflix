@@ -42,7 +42,7 @@ var app = new Vue({
             this.searchOpen = !this.searchOpen;
         },
         searching: function() {
-            
+
             // se l'ultimo array del created è stato popolato
             if (this.movieGenres.length != 0) {
 
@@ -61,7 +61,7 @@ var app = new Vue({
                     .then((got) => {
     
                         got.data.results.forEach((resultOriginal) => {
-                            // console.log(result);
+
                             // faccio una copia del result
                             let result = {...resultOriginal};
     
